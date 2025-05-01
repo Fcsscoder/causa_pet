@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 // Components
 
@@ -24,8 +24,10 @@ const Navbar = () => {
 
   const menuOptions = [
     { label: "Início", path: "/" },
-    { label: "Quero adotar", path: "/entrar" },
-    { label: "Quero doar", path: "/adotar" },
+    {
+      label: "Quero adotar",
+      path: "/adotar",
+    },
     { label: "Quem somos", path: "/quem-somos" },
   ];
 
@@ -50,6 +52,7 @@ const Navbar = () => {
         buttons={["Sim", "Não"]}
         funcButtonIndex={0}
       />
+
       <div className="flex bg-primary-color min-w-full min-h-17 items-center z-20 relative shadow-navbar font-semibold">
         <ul className="flex relative lg:hidden items-center justify-between w-full">
           <li className="ml-2">
@@ -82,6 +85,7 @@ const Navbar = () => {
         </ul>
 
         {/* Navbar lg */}
+
         <ul className="hidden relative lg:flex items-center justify-between w-full">
           <div className="ml-15 flex flex-row justify-between items-center gap-10">
             <li className="cursor-pointer">
@@ -89,8 +93,9 @@ const Navbar = () => {
                 <img src={CausaPet} className="w-10" />
               </Link>
             </li>
+
             {menuOptions.map((option, index) => (
-              <li key={index} className="">
+              <li key={index}>
                 <Link
                   to={option.path}
                   className="text-white hover:text-secondary-color duration-200">
@@ -98,13 +103,27 @@ const Navbar = () => {
                 </Link>
               </li>
             ))}
+            <li>
+              <a
+                href="https://apoia.se/causapetunilabdoacao"
+                className="text-white hover:text-secondary-color duration-200"
+                target="_blank">
+                Quero adotar
+              </a>
+            </li>
           </div>
+
+          {/* Verifica se o usuário está autenticado, se estiver exibe o botão para entrar no perfil e sair, se não, o botão para entrar e cadastrar */}
+
           {authenticated ? (
-            <ul className="mr-4">
-              <li
-                className="text-primary-color border-1 bg-white rounded p-2 duration-100 cursor-pointer hover:text-white hover:bg-primary-color hover:border-white px-5"
-                onClick={() => handleModal()}>
-                <Link to={"/"}>Sair</Link>
+            <ul className="mr-4 flex flex-row justify-center items-center gap-4">
+              <li className="mr-4 duration-100 text-white cursor-pointer hover:text-secondary-color">
+                <Link to={"/usuario/perfil"}>Perfil</Link>
+              </li>
+              <li onClick={() => handleModal()}>
+                <button className="text-primary-color border-1 bg-white rounded py-2 duration-100 hover:text-white hover:bg-primary-color hover:border-white px-6 cursor-pointer">
+                  Sair
+                </button>
               </li>
             </ul>
           ) : (
@@ -123,6 +142,7 @@ const Navbar = () => {
           )}
         </ul>
       </div>
+
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -141,12 +161,15 @@ const Navbar = () => {
                 <li key={index} className="text-2xl my-10">
                   <Link
                     to={option.path}
-                    className="text-white hover:text-primary-color duration-200 "
+                    className="text-white hover:text-primary-color duration-200"
                     onClick={handleMenu}>
                     {option.label}
                   </Link>
                 </li>
               ))}
+              <li className="text-2xl my-10 text-white">
+                <a href="https://apoia.se/causapetunilabdoacao">Quero adotar</a>
+              </li>
             </ul>
             <IoMdClose
               className="absolute top-0 flex right-0 m-3 text-2xl cursor-pointer text-white hover:text-primary-color duration-200"

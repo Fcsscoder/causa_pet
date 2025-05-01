@@ -1,3 +1,5 @@
+import { useNavigate } from "react-router-dom";
+
 const LogoutModal = ({
   isOpen,
   handleModal,
@@ -6,6 +8,8 @@ const LogoutModal = ({
   func,
   funcButtonIndex,
 }) => {
+  const navigate = useNavigate();
+
   if (!isOpen) return null;
 
   return (
@@ -25,6 +29,7 @@ const LogoutModal = ({
                     if (funcButtonIndex === index) {
                       func();
                       handleModal();
+                      navigate("/");
                     } else {
                       handleModal();
                     }

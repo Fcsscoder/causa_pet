@@ -10,6 +10,7 @@ import Register from "./components/pages/Auth/Register.jsx";
 import Home from "./components/pages/Home.jsx";
 import Error from "./components/pages/Error.jsx";
 import AboutUs from "./components/pages/AboutUs.jsx";
+import Profile from "./components/pages/Profile.jsx";
 
 // Contexts
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: "/quem-somos",
         element: <AboutUs />,
+      },
+      {
+        path: "/usuario/perfil",
+        element: <Profile />,
       },
     ],
   },
