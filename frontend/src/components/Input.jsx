@@ -1,6 +1,4 @@
-import React from "react";
-
-const Input = ({ type, name, id, label, onChange }) => {
+const Input = ({ type, name, id, label, handleOnChange, value }) => {
   return (
     <div className={`relative mb-5 z-0 w-full group`}>
       <input
@@ -9,7 +7,8 @@ const Input = ({ type, name, id, label, onChange }) => {
         id={id}
         className="block py-2.5 outline-primary-color px-0 w-full text-sm text-primary-color bg-transparent border-0 border-b-2 appearance-none focus:outline-none focus:ring-0 peer"
         placeholder=" "
-        onChange={onChange}
+        onChange={handleOnChange}
+        value={value}
       />
       <label
         htmlFor={id}

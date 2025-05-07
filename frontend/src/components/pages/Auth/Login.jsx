@@ -25,8 +25,11 @@ import { Context } from "../../../context/UserContext";
 const Login = () => {
   const navigate = useNavigate();
 
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
+  const [user, setUser] = useState({});
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const { validateLoginInput } = useInputValidation();
 
@@ -34,10 +37,6 @@ const Login = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      email: email,
-      password: password,
-    };
 
     const isValid = validateLoginInput(user);
 
@@ -64,20 +63,20 @@ const Login = () => {
           <img src={CausaPet} alt="causa-pet" className="w-15 sm:w-20 my-10" />
           <img src={Unilab} alt="causa-pet" className="w-45 sm:w-50 my-10" />
         </div>
-        <Form title="Entrar" submitText="Avançar" onSubmit={handleSubmit}>
+        <Form title="Entrar" submitText="Avançar" handleOnSubmit={handleSubmit}>
           <Input
             type="email"
             name="email"
             id="email"
             label="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            handleOnChange={handleChange}
           />
           <Input
             type="password"
             name="password"
             id="password"
             label="Senha"
-            onChange={(e) => setPassword(e.target.value)}
+            handleOnChange={handleChange}
           />
         </Form>
         <div className="h-18 w-70 sm:w-90 flex justify-around items-center">

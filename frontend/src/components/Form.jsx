@@ -1,14 +1,7 @@
-const Form = ({ children, onSubmit, title, submitText }) => {
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (onSubmit) {
-      onSubmit(e);
-    }
-  };
-
+const Form = ({ children, handleOnSubmit, title, submitText }) => {
   return (
     <form
-      onSubmit={handleSubmit}
+      onSubmit={handleOnSubmit}
       className={`relative w-70 sm:w-100 bg-white outline-2 outline-primary-color px-7 py-8 sm:py-15 rounded-2xl shadow-form`}>
       {title && <p className="text-2xl text-primary-color mb-5">{title}</p>}
       {children}

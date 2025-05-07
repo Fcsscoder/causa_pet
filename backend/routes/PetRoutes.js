@@ -12,7 +12,7 @@ const checkPetExists = require("../middlewares/checkPetExists");
 const { imageUpload } = require("../helpers/imageUpload");
 
 router.post(
-  "/criar",
+  "/",
   verifyToken,
   imageUpload.array("images"),
   PetController.create
@@ -20,11 +20,8 @@ router.post(
 
 router.get("/", PetController.getAll);
 router.get("/:id", PetController.getPetById);
-router.get("/mypets", verifyToken, PetController.getAllUserPets);
-router.get("/myadoptions", verifyToken, PetController.getAllUserAdoptions);
-router.get("/concludeadoption", verifyToken, PetController.concludeAdoption);
-
-router.delete("/:id", verifyToken, PetController.deletePetById);
+router.get("/me", verifyToken, PetController.getAllUserPets);
+router.get("/me/adoptions", verifyToken, PetController.getAllUserAdoptions);
 
 router.patch(
   "/:id",
@@ -34,5 +31,8 @@ router.patch(
   PetController.updatePet
 );
 router.patch("/schedule/:id", verifyToken, PetController.schedule);
+router.patch("/:id/conclude", verifyToken, PetController.concludeAdoption);
+
+router.delete("/:id", verifyToken, PetController.deletePetById);
 
 module.exports = router;

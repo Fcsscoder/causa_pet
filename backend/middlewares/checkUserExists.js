@@ -1,21 +1,18 @@
-const User = require("../models/User");
+// Helpers
+
+const getToken = require("../helpers/getToken");
+const getUserByToken = require("../helpers/getUserByToken");
 
 const checkUserExists = async (req, res, next) => {
-  id = req.params.id;
+  const token = getToken(req);
+  const user = await getUserByToken(token);
 
-  try {
-    const user = await User.findById(id);
-
-    if (!user) {
-      return res.status(404).json({ message: "Usuário não encontrado." });
-    }
-
-    req.user = user;
-
-    next();
-  } catch (err) {
-    return res.status(500).json({ message: "Erro no servidor." });
+  if (!user) {
+    return res.status(404).json({ message: "Usuário não encontrado." });
   }
+
+  req.user = user;
+  next();
 };
 
 module.exports = checkUserExists;

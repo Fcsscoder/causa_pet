@@ -167,8 +167,8 @@ const Navbar = () => {
                   </Link>
                 </li>
               ))}
-              <li className="text-2xl my-10 text-white">
-                <a href="https://apoia.se/causapetunilabdoacao">Quero adotar</a>
+              <li className="text-2xl my-10 text-white hover:text-primary-color duration-200">
+                <a href="https://apoia.se/causapetunilabdoacao">Quero doar</a>
               </li>
             </ul>
             <IoMdClose

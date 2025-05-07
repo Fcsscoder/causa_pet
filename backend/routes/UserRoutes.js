@@ -12,13 +12,16 @@ const { imageUpload } = require("../helpers/imageUpload");
 
 router.post("/login", UserController.login);
 router.post("/register", UserController.register);
-router.get("/checkuser", UserController.checkUser);
+
+router.get("/me", UserController.checkUser);
 router.get("/:id", verifyToken, UserController.getUserById);
+
+router.patch("/me", verifyToken, UserController.editUser);
+
 router.patch(
-  "/edit/:id",
+  "/me/profile-image",
   verifyToken,
   imageUpload.single("image"),
-  UserController.editUser
+  UserController.editUserImage
 );
-
 module.exports = router;

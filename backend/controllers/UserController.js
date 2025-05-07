@@ -35,11 +35,18 @@ module.exports = class UserController {
     // Verificando se o email enviado existe
 
     const userExist = await User.findOne({ email: email });
+    const phoneExists = await User.findOne({ phone: phone });
 
     if (userExist) {
       return res
         .status(422)
-        .json({ message: "Email já cadastrado. Tente novamente." });
+        .json({ message: "Este email já está cadastrado." });
+    }
+
+    if (phoneExists) {
+      return res.status(422).json({
+        message: "Este número de telefone já está cadastrado.",
+      });
     }
 
     // Criando o hash
@@ -129,23 +136,6 @@ module.exports = class UserController {
       return res.status(422).json({ message: "Usuário não encontrado." });
     }
 
-    if (user.image) {
-      const imagePath = path.join(
-        __dirname,
-        "..",
-        "public",
-        "images",
-        "users",
-        user.image
-      );
-
-      fs.unlink(imagePath, (err) => {});
-    }
-
-    if (req.file) {
-      user.image = req.file.filename;
-    }
-
     const error = validateUserInput("edit", {
       name,
       email,
@@ -156,15 +146,16 @@ module.exports = class UserController {
       return res.status(422).json({ message: error });
     }
 
-    user.phone = phone;
-    user.email = email;
-    user.name = name;
-
-    const userExist = await User.findOne({ email: email });
-
-    if (user.email !== email && userExist) {
-      return res.status(422).json({ message: "Email já cadastrado." });
+    if (user.email !== email) {
+      const userExist = await User.findOne({ email });
+      if (userExist) {
+        return res.status(422).json({ message: "Email já cadastrado." });
+      }
+      user.email = email;
     }
+
+    user.phone = phone;
+    user.name = name;
 
     if (password != confirmpassword) {
       return res.status(422).json({ message: "As senhas não conferem." });
@@ -183,6 +174,46 @@ module.exports = class UserController {
       );
 
       res.status(200).json({ message: "Usuário atualizado com sucesso." });
+    } catch (error) {
+      return res.status(500).json({ message: error });
+    }
+  }
+
+  static async editUserImage(req, res) {
+    const token = getToken(req);
+    const user = await getUserByToken(token);
+
+    if (!user) {
+      return res.status(422).json({ message: "Usuário não encontrado." });
+    }
+
+    if (user.image) {
+      const imagePath = path.join(
+        __dirname,
+        "..",
+        "public",
+        "images",
+        "users",
+        user.image
+      );
+
+      fs.unlink(imagePath, (err) => {});
+    }
+
+    if (req.file) {
+      user.image = req.file.filename;
+    }
+
+    try {
+      await User.findOneAndUpdate(
+        { _id: user._id },
+        { $set: user },
+        { new: true }
+      );
+
+      res
+        .status(200)
+        .json({ message: "Foto de perfil atualizada com sucesso!" });
     } catch (error) {
       return res.status(500).json({ message: error });
     }

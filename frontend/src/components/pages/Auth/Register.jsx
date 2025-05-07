@@ -26,23 +26,16 @@ const Register = () => {
   const { register } = useContext(Context);
   const { validateRegisterInput } = useInputValidation();
 
-  const [name, setName] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [confirmPassword, setConfirmPassword] = useState(null);
-
   const navigate = useNavigate();
+
+  const [user, setUser] = useState({});
+
+  const handleChange = (e) => {
+    setUser({ ...user, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const user = {
-      name: name,
-      email: email,
-      phone: phone,
-      password: password,
-      confirmpassword: confirmPassword,
-    };
 
     const isValid = validateRegisterInput(user);
 
@@ -70,7 +63,7 @@ const Register = () => {
           <img src={Unilab} alt="causa-pet" className="w-45 sm:w-50 my-10" />
         </div>
         <Form
-          onSubmit={handleSubmit}
+          handleOnSubmit={handleSubmit}
           title="Cadastre-se"
           submitText="Cadastrar">
           <Input
@@ -78,35 +71,35 @@ const Register = () => {
             name="name"
             id="name"
             label="Nome"
-            onChange={(e) => setName(e.target.value)}
+            handleOnChange={handleChange}
           />
           <Input
             type="email"
             name="email"
             id="email"
             label="Email"
-            onChange={(e) => setEmail(e.target.value)}
+            handleOnChange={handleChange}
           />
           <Input
             type="text"
             name="phone"
             id="phone"
             label="Celular"
-            onChange={(e) => setPhone(e.target.value)}
+            handleOnChange={handleChange}
           />
           <Input
             type="password"
             name="password"
             id="password"
             label="Senha"
-            onChange={(e) => setPassword(e.target.value)}
+            handleOnChange={handleChange}
           />
           <Input
             type="password"
             name="confirmpassword"
             id="confirmpassword"
             label="Confirmar senha"
-            onChange={(e) => setConfirmPassword(e.target.value)}
+            handleOnChange={handleChange}
           />
         </Form>
         <div className="h-18 w-70 sm:w-90 flex justify-around items-center gap-5">
