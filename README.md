@@ -8,7 +8,7 @@
   <img src="https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white" alt="MongoDB">
 </p>
 
-<h1 align="center">Causa Pet</h1>
+<h1 align="center">🐾 Causa Pet</h1>
   
 <p>CausaPet é uma plataforma web em desenvolvimento, criada como parte de uma iniciativa da minha universidade, formada por estudantes e professores, com o objetivo de promover o cuidado e a proteção de animais, como cães e gatos, por meio da tecnologia.
 
@@ -20,8 +20,14 @@ Como voluntário no projeto, estou contribuindo com o desenvolvimento da aplica�
 
 ![Image](https://github.com/user-attachments/assets/70299eaf-b9d9-419d-982c-7e35b0358c8d)
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/88affb86-4ca6-4feb-86f6-3b5beedb32b7" width="300" />
+  <img src="https://github.com/user-attachments/assets/977c5f9e-3773-4b9a-9781-7ccc3e164a9f" width="300" />
+</p>
+
+
 <p>
-## 🚧 Status do Projeto
+🚧 Status do Projeto
 
 > **Este projeto está em desenvolvimento.** Funcionalidades estão sendo implementadas gradualmente, com foco em qualidade, acessibilidade e impacto social.
 
